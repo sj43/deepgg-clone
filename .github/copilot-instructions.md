@@ -142,7 +142,7 @@ Follow RESTful conventions:
 
 Required in `.env`:
 - `RIOT_API_KEY` - From https://developer.riotgames.com/
-- `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY` - From Supabase dashboard
+- `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY` - From Supabase dashboard
 - `REDIS_HOST`, `REDIS_PORT` - Redis connection
 - `CORS_ORIGIN` - Frontend URL for CORS
 
