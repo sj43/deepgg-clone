@@ -44,8 +44,8 @@ cp .env.example .env
 Edit `.env` and add your API keys:
 - `RIOT_API_KEY` - Your Riot Games API key
 - `SUPABASE_URL` - Your Supabase project URL
-- `SUPABASE_ANON_KEY` - Your Supabase anonymous key
-- `SUPABASE_SERVICE_KEY` - Your Supabase service role key
+- `SUPABASE_PUBLISHABLE_KEY` - Your Supabase publishable key (client-side)
+- `SUPABASE_SECRET_KEY` - Your Supabase secret key (server-side only)
 
 ### 3. Start services with Docker
 
