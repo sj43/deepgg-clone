@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useTierList } from '../hooks/useTierList'
 import { Role, ROLES, ROLE_NAMES } from '../types/champion'
+import Navbar from '../components/Navbar'
 import TierListTable from '../components/TierListTable'
 
 function TierList() {
@@ -11,14 +11,7 @@ function TierList() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      {/* Navigation */}
-      <nav className="bg-gray-800 border-b border-gray-700">
-        <div className="container mx-auto px-4 py-4">
-          <Link to="/" className="text-xl font-bold hover:text-blue-400 transition-colors">
-            DeepGG Clone
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Tier List Content */}
       <div className="container mx-auto px-4 py-8">

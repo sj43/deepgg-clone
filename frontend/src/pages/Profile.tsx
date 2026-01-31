@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useSummoner } from '../hooks/useSummoner'
 import { Region } from '../types/api'
+import Navbar from '../components/Navbar'
 import ProfileHeader from '../components/ProfileHeader'
 import RankedStats from '../components/RankedStats'
 import MatchHistory from '../components/MatchHistory'
@@ -69,14 +70,7 @@ function Profile() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      {/* Navigation */}
-      <nav className="bg-gray-800 border-b border-gray-700">
-        <div className="container mx-auto px-4 py-4">
-          <Link to="/" className="text-xl font-bold hover:text-blue-400 transition-colors">
-            DeepGG Clone
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Profile Content */}
       <div className="container mx-auto px-4 py-8">
