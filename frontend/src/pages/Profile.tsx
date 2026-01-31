@@ -3,6 +3,7 @@ import { useSummoner } from '../hooks/useSummoner'
 import { Region } from '../types/api'
 import ProfileHeader from '../components/ProfileHeader'
 import RankedStats from '../components/RankedStats'
+import MatchHistory from '../components/MatchHistory'
 
 function Profile() {
   const { region, gameName, tagLine } = useParams<{
@@ -87,6 +88,10 @@ function Profile() {
         
         <div className="mt-8">
           <RankedStats rankedStats={profile.rankedStats} />
+        </div>
+
+        <div className="mt-8">
+          <MatchHistory puuid={profile.summoner.puuid} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { validateSummonerInput, parseSummonerInput } from '../services/summonerService'
 import { Region, REGIONS, REGION_NAMES } from '../types/api'
 
@@ -42,6 +42,16 @@ function Home() {
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4">DeepGG Clone</h1>
         <p className="text-gray-400">League of Legends Stats Tracker</p>
+        
+        {/* Navigation Links */}
+        <div className="flex justify-center gap-4 mt-6">
+          <Link
+            to="/tierlist"
+            className="px-6 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg font-semibold transition-colors"
+          >
+            📊 Champion Tier List
+          </Link>
+        </div>
       </header>
       
       <div className="max-w-2xl mx-auto">
