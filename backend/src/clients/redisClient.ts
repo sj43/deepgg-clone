@@ -3,35 +3,58 @@ import { createClient, RedisClientType } from 'redis'
 export class RedisCache {
   private client: RedisClientType | null = null
   private isConnected = false
+  private isConnecting = false
 
   async connect(): Promise<void> {
-    if (this.isConnected) return
+    if (this.isConnected || this.isConnecting) return
+
+    this.isConnecting = true
 
     const redisHost = process.env.REDIS_HOST || 'localhost'
     const redisPort = parseInt(process.env.REDIS_PORT || '6379')
 
-    this.client = createClient({
-      socket: {
-        host: redisHost,
-        port: redisPort,
-      },
-    })
+    try {
+      this.client = createClient({
+        socket: {
+          host: redisHost,
+          port: redisPort,
+          reconnectStrategy: (retries) => {
+            // Stop reconnecting after 3 attempts
+            if (retries > 3) {
+              console.log('⚠️  Redis connection failed after 3 attempts, continuing without cache')
+              return false
+            }
+            // Wait 1 second between retries
+            return 1000
+          },
+        },
+      })
 
-    this.client.on('error', (err) => {
-      console.error('Redis Client Error:', err)
-    })
+      this.client.on('error', (err) => {
+        // Only log error once, not every retry
+        if (!this.isConnected) {
+          console.error('Redis Client Error:', err.message)
+        }
+      })
 
-    this.client.on('connect', () => {
-      console.log('✅ Redis connected successfully')
-      this.isConnected = true
-    })
+      this.client.on('connect', () => {
+        console.log('✅ Redis connected successfully')
+        this.isConnected = true
+        this.isConnecting = false
+      })
 
-    this.client.on('disconnect', () => {
-      console.log('⚠️  Redis disconnected')
+      this.client.on('disconnect', () => {
+        console.log('⚠️  Redis disconnected')
+        this.isConnected = false
+      })
+
+      await this.client.connect()
+    } catch (error: any) {
+      console.warn('⚠️  Redis connection failed, continuing without cache:', error.message)
+      this.client = null
       this.isConnected = false
-    })
-
-    await this.client.connect()
+      this.isConnecting = false
+    }
   }
 
   async disconnect(): Promise<void> {
